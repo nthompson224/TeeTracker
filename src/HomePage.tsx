@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { data, useNavigate } from "react-router-dom";
-import { APIProvider, Map, MapCameraChangedEvent, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
+import { APIProvider, Map, MapCameraChangedEvent, AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
 
 import { supabase } from "./lib/helper/SupabaseClient";
 
-import './styles/HomePage.css';
+import "./styles/HomePage.css";
 
 type location = { coordinates: google.maps.LatLngLiteral };
 type device = { id: string, status: string, name: string, location?: location };
@@ -22,8 +22,8 @@ export function HomePage() {
     function test() {
         if (socket.current) {
             socket.current.send(JSON.stringify({
-                messageType: "INITIALIZE",
-                id: "1",
+                command: "INITIALIZE",
+                id: 1,
                 name: "changed test device"
             }));
             console.log("Message sent");
@@ -52,31 +52,33 @@ export function HomePage() {
         getUser();
 
         if (userID !== "") {
-            socket.current = new WebSocket('ws://192.168.1.16:3001');
+            socket.current = new WebSocket("ws://192.168.1.16:3001");
 
             socket.current.onmessage = (event) => {
                 const messageData = JSON.parse(event.data);
                 console.log(messageData);
 
-                if (messageData['message-type'] === "DEVICE_INFORMATION") {
+                if (messageData["message-type"] === "DEVICE_INFORMATION") {
                     let tempDevices: device[] = []
                     for (let i = 0; i < messageData["device-data"].length; ++i) {
-                        tempDevices.push({ id: messageData["device-data"][i]["id"], status: messageData['device-data'][i]['Status'], name: messageData["device-data"][i]["deviceName"] })
+                        tempDevices.push({ id: messageData["device-data"][i]["id"], status: messageData["device-data"][i]["status"], name: messageData["device-data"][i]["deviceName"] })
                     }
 
                     setInitializedDevices(tempDevices);
                 }
 
-                if (messageData['message-type'] === "ARDUINO_DATA") {
+                if (messageData["message-type"] === "ARDUINO_DATA") {
                     setInitializedDevices((prevDevices) =>
                         prevDevices?.map((device) =>
-                            device.id == messageData['arduino-data']['id']
+                            device.id == messageData["arduino-data"]["id"]
                                 ? {
-                                    ...device,
+                                    id: messageData["arduino-data"]["id"],
+                                    status: messageData["arduino-data"]["status"],
+                                    name: messageData["arduino-data"]["name"],
                                     location: {
                                         coordinates: {
-                                            lng: messageData['arduino-data']['longitude'],
-                                            lat: messageData['arduino-data']['latitude']
+                                            lng: messageData["arduino-data"]["coordinates"]["long"],
+                                            lat: messageData["arduino-data"]["coordinates"]["lat"]
                                         }
                                     }
                                 }
@@ -84,6 +86,7 @@ export function HomePage() {
                         ) ?? []
                     );
                 }
+                console.log(initializedDevices);
             };
 
             return () => {
@@ -103,11 +106,11 @@ export function HomePage() {
                         <Map
                             defaultZoom={20}
                             defaultCenter={{ lat: 41.0032, lng: -81.59075 }}
-                            mapId={'858637552d9afbaf '}
-                            mapTypeId='satellite'
+                            mapId={"858637552d9afbaf "}
+                            mapTypeId="satellite"
                             disableDefaultUI={true}
                             onCameraChanged={(ev: MapCameraChangedEvent) =>
-                                console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
+                                console.log("camera changed:", ev.detail.center, "zoom:", ev.detail.zoom)
                             }>
                             {initializedDevices ? <PoiMarkers devices={initializedDevices}></PoiMarkers> : <></>}
                         </Map>
@@ -127,7 +130,7 @@ export function HomePage() {
                             return (
                                 <div className="golfer">
                                     <img src="logo512.png" />
-                                    <h3>{device['name']}</h3>
+                                    <h3>{device["name"]}</h3>
                                 </div>
                             )
                         }) : <></>}
