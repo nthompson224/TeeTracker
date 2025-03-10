@@ -19,19 +19,6 @@ export function HomePage() {
 
     const socket = useRef<WebSocket | null>(null);
 
-    function test() {
-        if (socket.current) {
-            socket.current.send(JSON.stringify({
-                command: "INITIALIZE",
-                id: 1,
-                name: "changed test device"
-            }));
-            console.log("Message sent");
-        } else {
-            console.log("Websocket is not connected.");
-        }
-    }
-
     useEffect(() => {
         const getUser = async () => {
             try {
@@ -99,7 +86,6 @@ export function HomePage() {
 
     return (
         <div>
-            <button onClick={test}></button>
             <div className="dashboard">
                 <div className="map">
                     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY!} onLoad={() => console.log("Maps API has loaded.")}>
