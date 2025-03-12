@@ -7,7 +7,7 @@ import { supabase } from "./lib/helper/SupabaseClient";
 import "./styles/HomePage.css";
 
 type location = { coordinates: google.maps.LatLngLiteral };
-type device = { id: string, status: string, name: string, location?: location };
+type device = { id: number, status: string, name: string, location?: location };
 
 export function HomePage() {
     const loginRedirect = useNavigate();
@@ -57,7 +57,7 @@ export function HomePage() {
                 if (messageData["message-type"] === "ARDUINO_DATA") {
                     setInitializedDevices((prevDevices) =>
                         prevDevices?.map((device) =>
-                            device.id == messageData["arduino-data"]["id"]
+                            device.id === messageData["arduino-data"]["id"]
                                 ? {
                                     id: messageData["arduino-data"]["id"],
                                     status: messageData["arduino-data"]["status"],
