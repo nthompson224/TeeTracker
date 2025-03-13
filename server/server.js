@@ -9,9 +9,6 @@ const arduinoWebsocketServer = new ws.Server({ port: 3002 });
 app.use(bodyParser.json());
 let connectedDevices = new Map();
 let arduinoWebsockets = new Map();
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
-});
 app.get('/connect', (req, res) => {
     console.log("Device connected");
     res.status(200);

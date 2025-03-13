@@ -9,9 +9,7 @@
     width: 100%;
     height: 100vh;
     padding-top: 175px;
-    background: -webkit-linear-gradient(
-        rgba(36, 73, 151, 255) rgba(84, 164, 234, 255)
-    );
+    background: -webkit-linear-gradient(rgba(36, 73, 151, 255) rgba(84, 164, 234, 255));
     background: linear-gradient(rgba(37, 73, 150, 0.95), rgba(0, 0, 0, 0.95));
     display: flex;
     align-items: center;
@@ -36,7 +34,7 @@
     align-items: center;
 }
 
-a, button {
+.button {
     background-color: transparent;
     text-decoration: none;
     display: inline block;
@@ -52,8 +50,7 @@ a, button {
     margin-top: 20px;
 }
 
-a:hover,
-button:hover {
+.button:hover {
     background-color: #519fe75e;
     color: #519fe7;
     border: 2px solid #519fe7;
@@ -147,15 +144,15 @@ textarea:focus {
     user-select: none;
 }
 
-.input input:focus + .label,
-.input input:not(:placeholder-shown) + .label,
-.input input:-webkit-autofill + .label {
+.input input:focus+.label,
+.input input:not(:placeholder-shown)+.label,
+.input input:-webkit-autofill+.label {
     transform: translateY(-27px);
 }
 
-.input input:focus + .label label,
-.input input:not(:placeholder-shown) + .label label,
-.input input:-webkit-autofill + .label label {
+.input input:focus+.label label,
+.input input:not(:placeholder-shown)+.label label,
+.input input:-webkit-autofill+.label label {
     cursor: default;
     font-weight: 500;
     color: #fff;

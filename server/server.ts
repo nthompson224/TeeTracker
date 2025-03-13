@@ -15,10 +15,6 @@ type device = { id: string, status: string, deviceName: string, lastPing: number
 let connectedDevices = new Map<string, device>();
 let arduinoWebsockets = new Map<string, WebSocket>();
 
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
-});
-
 app.get('/connect', (req: any, res: any) => {
     console.log("Device connected");
 
