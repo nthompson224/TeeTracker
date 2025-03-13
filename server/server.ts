@@ -79,10 +79,10 @@ arduinoWebsocketServer.on("connection", (ws: WebSocket) => {
             let newDevice: device = {
                 id: msg.id,
                 status: msg.status,
-                deviceName: msg.deviceName,
+                deviceName: msg.name,
                 lastPing: Date.now(),
             };
-        
+
             connectedDevices.set(msg.id, newDevice);
 
             websocketServer.clients.forEach((client) => {
@@ -91,7 +91,7 @@ arduinoWebsocketServer.on("connection", (ws: WebSocket) => {
                         "message-type": "DEVICE_INFORMATION",
                         "device-data": Array.from(connectedDevices.values())
                     };
-            
+
                     client.send(JSON.stringify(deviceData));
                 }
             })
@@ -117,7 +117,7 @@ arduinoWebsocketServer.on("connection", (ws: WebSocket) => {
                     }
                 }
             };
-        
+
             websocketServer.clients.forEach((client) => {
                 if (client.readyState === ws.OPEN) {
                     client.send(JSON.stringify(arduinoData))
