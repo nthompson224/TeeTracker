@@ -1,0 +1,19 @@
+.popup {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(5px);
+}
+
+.content {
+    width: 75%;
+    height: 75%;
+    border-radius: 25px;
+    background: -webkit-linear-gradient(rgba(36, 73, 151, 255) rgba(84, 164, 234, 255));
+    background: linear-gradient(rgba(37, 73, 150, 1), rgba(0, 0, 0, 1));
+}
