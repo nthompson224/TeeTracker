@@ -59,10 +59,12 @@ export function LoginPage() {
                         </div>
                     </div>
                 </div>
-                <div className="input">
-                    <input type="password" id="password" placeholder="" />
-                    <div className="label">
-                        <label htmlFor="password">Password</label>
+                <div className='input-wrap'>
+                    <div className="input">
+                        <input type="password" id="password" placeholder="" />
+                        <div className="label">
+                            <label htmlFor="password">Password</label>
+                        </div>
                     </div>
                 </div>
                 <button className="button" onClick={loginUser}>Login</button>

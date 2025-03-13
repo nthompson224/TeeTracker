@@ -98,7 +98,6 @@ export function HomePage() {
 
     return (
         <div>
-            <button onClick={test}>Test</button>
             <div className="dashboard">
                 <div className="map">
                     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY!} onLoad={() => console.log("Maps API has loaded.")}>

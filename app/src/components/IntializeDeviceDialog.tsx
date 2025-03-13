@@ -7,7 +7,8 @@ export function IntializeDeviceDialog(props: { show: boolean, devices?: device[]
         <>
             {props.show ?
                 <div className="popup">
-                    <div className="content">
+                    <div className="popup-content">
+                        <div className="popup-header"><button className="close-button" onClick={() => props.closePopup(false)}>X</button></div>
                         {props.devices ? props.devices.filter((device: device) => {
                             return device.status === "UNINITIALIZED";
                         }).map((device: device) => {
@@ -18,7 +19,6 @@ export function IntializeDeviceDialog(props: { show: boolean, devices?: device[]
                                 </div>
                             )
                         }) : <></>}
-                        <button onClick={() => props.closePopup(false)}>close</button>
                     </div>
                 </div> : <></>}
         </>
