@@ -14,7 +14,7 @@ export function IntializeDeviceDialog(props: { show: boolean, devices?: device[]
                         }).map((device: device) => {
                             return (
                                 <div className="golfer">
-                                    <img src="logo512.png" />
+                                    <img src="raspberrypi.png" />
                                     <h3>{device["name"]}</h3>
                                 </div>
                             )
