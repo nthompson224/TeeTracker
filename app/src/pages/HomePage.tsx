@@ -97,7 +97,7 @@ export function HomePage() {
     }, [userID, loginRedirect]);
 
     return (
-        <div>
+        <div className="base">
             <div className="dashboard">
                 <div className="map">
                     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY!} onLoad={() => console.log("Maps API has loaded.")}>
