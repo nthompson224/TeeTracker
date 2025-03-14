@@ -57,3 +57,11 @@
     border: 2px solid #fff;
     color: #fff;
 }
+
+.golfer > div {
+    padding-left: 20px;
+}
+
+.golfer > div:hover {
+    cursor: pointer;
+}

@@ -16,6 +16,7 @@ export function IntializeDeviceDialog(props: { show: boolean, devices?: device[]
                                 <div className="golfer">
                                     <img src="raspberrypi.png" />
                                     <h3>{device["name"]}</h3>
+                                    <div>&#9660;</div>
                                 </div>
                             )
                         }) : <></>}
