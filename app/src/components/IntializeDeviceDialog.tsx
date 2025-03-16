@@ -1,8 +1,11 @@
+import { useState } from "react";
+
 import { device } from "../types/types";
 
 import "../styles/IntializeDeviceDialog.css"
+import { ExpandableDeviceComponent } from "./ExpandableDeviceComponent";
 
-export function IntializeDeviceDialog(props: { show: boolean, devices?: device[], closePopup: Function }) {
+export function IntializeDeviceDialog(props: { show: boolean, devices?: device[], closePopup: Function, sendInitializeCommand: Function }) {
     return (
         <>
             {props.show ?
@@ -13,11 +16,10 @@ export function IntializeDeviceDialog(props: { show: boolean, devices?: device[]
                             return device.status === "UNINITIALIZED";
                         }).map((device: device) => {
                             return (
-                                <div className="golfer">
-                                    <img src="raspberrypi.png" />
-                                    <h3>{device["name"]}</h3>
-                                    <div>&#9660;</div>
-                                </div>
+                                <>
+                                    <ExpandableDeviceComponent device={device} sendInitializeCommand={props.sendInitializeCommand} closePopup={props.closePopup} />
+                                    <ExpandableDeviceComponent device={device} sendInitializeCommand={props.sendInitializeCommand} closePopup={props.closePopup} />
+                                </>
                             )
                         }) : <></>}
                     </div>

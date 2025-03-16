@@ -33,9 +33,10 @@
 }
 
 .add-device-button:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
     cursor: pointer;
-    background-color: grey;
-    color: rgba(102, 148, 247, 0.8);
 }
 
 .golfers {
@@ -45,12 +46,12 @@
 }
 
 .golfer {
-    padding: 10px;
+    padding: 30px;
     text-align: center;
     border: 1px solid black;
 }
 
-.golfer>img {
+.golfer > img {
     width: 100px;
     height: 100px;
 }

@@ -1,8 +1,17 @@
 import { device, location } from "../types/types";
 
 import "../styles/Sidebar.css";
+import { supabase } from "../lib/helper/SupabaseClient";
+import { InitializedDevice } from "./InitializedDevice";
+
+const CDNURL = "https://raehtwwdbuzfggmigybx.supabase.co/storage/v1/object/sign/golfer-pictures/"
 
 export function Sidebar(props: { devices?: device[], showPopup: Function }) {
+
+    // async function getGolferPicture() {
+    //     const { data, error } = await supabase.storage.from("golfers").
+    // }
+
     return (
         <div className="sidebar">
             <div className="sidebar-header">
@@ -16,10 +25,7 @@ export function Sidebar(props: { devices?: device[], showPopup: Function }) {
                     return device.status === "INITIALIZED";
                 }).map((device: device) => {
                     return (
-                        <div className="golfer">
-                            <img src="logo512.png" />
-                            <h3>{device["name"]}</h3>
-                        </div>
+                        <InitializedDevice device={device} />
                     )
                 }) : <></>}
             </div>

@@ -9,18 +9,24 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      profiles: {
+      golfers: {
         Row: {
-          id: number
-          username: string
+          firstName: string
+          id: string
+          lastName: string
+          pictureUrl: string | null
         }
         Insert: {
-          id?: number
-          username: string
+          firstName: string
+          id?: string
+          lastName: string
+          pictureUrl?: string | null
         }
         Update: {
-          id?: number
-          username?: string
+          firstName?: string
+          id?: string
+          lastName?: string
+          pictureUrl?: string | null
         }
         Relationships: []
       }

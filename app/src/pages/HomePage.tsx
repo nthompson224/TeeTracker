@@ -8,7 +8,7 @@ import { IntializeDeviceDialog } from "../components/IntializeDeviceDialog";
 import { PoiMarkers } from "../components/PoiMarkers";
 
 import { supabase } from "../lib/helper/SupabaseClient";
-import { device, location } from "../types/types";
+import { device, location, selectedGolfer } from "../types/types";
 
 import "../styles/HomePage.css"
 
@@ -23,12 +23,14 @@ export function HomePage() {
 
     const socket = useRef<WebSocket | null>(null);
 
-    function test() {
+    function sendInitializeCommand(golfer: selectedGolfer) {
         let message = {
             command: "INITIALIZE",
             id: 1,
-            name: "testestest"
+            golferId: golfer.uuid,
+            name: golfer.name
         };
+
         socket.current!.send(JSON.stringify(message))
     }
 
@@ -74,6 +76,7 @@ export function HomePage() {
                                 ? {
                                     id: messageData["arduino-data"]["id"],
                                     status: messageData["arduino-data"]["status"],
+                                    golferUUID: messageData["arduino-data"]["golferUUID"],
                                     name: messageData["arduino-data"]["name"],
                                     location: {
                                         coordinates: {
@@ -113,7 +116,7 @@ export function HomePage() {
                     </APIProvider>
                 </div>
                 <Sidebar devices={initializedDevices} showPopup={setShowPopup} />
-                <IntializeDeviceDialog devices={initializedDevices} show={showPopup} closePopup={setShowPopup} />
+                <IntializeDeviceDialog devices={initializedDevices} show={showPopup} closePopup={setShowPopup} sendInitializeCommand={sendInitializeCommand} />
             </div>
         </div>
     );
