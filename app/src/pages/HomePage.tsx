@@ -20,6 +20,7 @@ export function HomePage() {
     const [uninitializedDevices, setUninitializedDevices] = useState<device[]>();
     const [locations, setLocations] = useState<location[]>();
     const [showPopup, setShowPopup] = useState(false);
+    const [hoveredDevice, setHoveredDevice] = useState<device | undefined>();
 
     const socket = useRef<WebSocket | null>(null);
 
@@ -63,7 +64,11 @@ export function HomePage() {
                 if (messageData["message-type"] === "DEVICE_INFORMATION") {
                     let tempDevices: device[] = []
                     for (let i = 0; i < messageData["device-data"].length; ++i) {
-                        tempDevices.push({ id: messageData["device-data"][i]["id"], status: messageData["device-data"][i]["status"], name: messageData["device-data"][i]["deviceName"] })
+                        tempDevices.push({
+                            id: messageData["device-data"][i]["id"],
+                            status: messageData["device-data"][i]["status"],
+                            name: messageData["device-data"][i]["deviceName"],
+                        })
                     }
 
                     setInitializedDevices(tempDevices);
@@ -83,7 +88,7 @@ export function HomePage() {
                                             lng: messageData["arduino-data"]["coordinates"]["long"],
                                             lat: messageData["arduino-data"]["coordinates"]["lat"]
                                         }
-                                    }
+                                    },
                                 }
                                 : device
                         ) ?? []
@@ -111,11 +116,11 @@ export function HomePage() {
                             mapTypeId="satellite"
                             disableDefaultUI={true}
                         >
-                            {initializedDevices ? <PoiMarkers devices={initializedDevices}></PoiMarkers> : <></>}
+                            {initializedDevices ? <PoiMarkers devices={initializedDevices} hoveredDevice={hoveredDevice} color="cyan"></PoiMarkers> : <></>}
                         </Map>
                     </APIProvider>
                 </div>
-                <Sidebar devices={initializedDevices} showPopup={setShowPopup} />
+                <Sidebar devices={initializedDevices} showPopup={setShowPopup} setHoveredDevice={setHoveredDevice} />
                 <IntializeDeviceDialog devices={initializedDevices} show={showPopup} closePopup={setShowPopup} sendInitializeCommand={sendInitializeCommand} />
             </div>
         </div>

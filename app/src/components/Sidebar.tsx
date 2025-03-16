@@ -6,12 +6,7 @@ import { InitializedDevice } from "./InitializedDevice";
 
 const CDNURL = "https://raehtwwdbuzfggmigybx.supabase.co/storage/v1/object/sign/golfer-pictures/"
 
-export function Sidebar(props: { devices?: device[], showPopup: Function }) {
-
-    // async function getGolferPicture() {
-    //     const { data, error } = await supabase.storage.from("golfers").
-    // }
-
+export function Sidebar(props: { devices?: device[], showPopup: Function, setHoveredDevice: Function }) {
     return (
         <div className="sidebar">
             <div className="sidebar-header">
@@ -25,7 +20,7 @@ export function Sidebar(props: { devices?: device[], showPopup: Function }) {
                     return device.status === "INITIALIZED";
                 }).map((device: device) => {
                     return (
-                        <InitializedDevice device={device} />
+                        <InitializedDevice device={device} setHoveredDevice={props.setHoveredDevice} />
                     )
                 }) : <></>}
             </div>
