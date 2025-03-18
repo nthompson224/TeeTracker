@@ -55,3 +55,11 @@
     width: 100px;
     height: 100px;
 }
+
+.color-identifier {
+    position: absolute;
+    left: 3px;
+    width: 5px;
+    height: 125px;
+    border-radius: 25px;
+}

@@ -14,7 +14,7 @@ export function PoiMarkers(props: { devices: device[], hoveredDevice?: device, c
                                 <>
                                     <div></div>
                                     <div className="marker" style={{ width: "40px", height: "40px", backgroundColor: "#fff" }}></div>
-                                </> : <div className="marker"></div>}
+                                </> : <div className="marker" style={{ backgroundColor: props.color }}></div>}
                         </AdvancedMarker>
                     )
                 } else {

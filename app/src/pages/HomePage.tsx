@@ -17,8 +17,6 @@ export function HomePage() {
 
     const [userID, setUserID] = useState("");
     const [initializedDevices, setInitializedDevices] = useState<device[]>();
-    const [uninitializedDevices, setUninitializedDevices] = useState<device[]>();
-    const [locations, setLocations] = useState<location[]>();
     const [showPopup, setShowPopup] = useState(false);
     const [hoveredDevice, setHoveredDevice] = useState<device | undefined>();
 
