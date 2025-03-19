@@ -1,0 +1,91 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    border-radius: 25px;
+    border: 2px solid #fff;
+}
+
+.device {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: #fff;
+}
+
+.device :hover {
+    cursor: pointer;
+}
+
+.device-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.device-info > img {
+    width: 100px;
+    height: 100px;
+}
+
+.arrow {
+    position: fixed;
+    right: 40%;
+    user-select: none;
+}
+
+.device-initialize {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.device-initialize .input-wrap {
+    padding-top: 30px;
+}
+
+.device-initialize .input {
+    width: 90%;
+}
+
+.device-initialize .button {
+    margin: 0px;
+    width: 100px;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.autocomplete {
+    background: -webkit-linear-gradient(rgba(36, 73, 151, 255) rgba(84, 164, 234, 255));
+    background: linear-gradient(rgba(37, 73, 150, 0.95), rgba(0, 0, 0, 0.95));
+    position: absolute;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    z-index: 2;
+    margin-top: 50px;
+}
+
+.golfer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+    margin: 2px;
+}
+
+.golfer:hover {
+    cursor: pointer;
+    border-radius: 25px;
+    background-color: rgba(37, 73, 150, 0.95);
+}
+
+.golfer-picture {
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+}
