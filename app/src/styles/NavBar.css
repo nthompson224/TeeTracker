@@ -1,0 +1,141 @@
+.nav-bar {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100px;
+    background: -webkit-linear-gradient(rgba(36, 73, 151, 255) rgba(84, 164, 234, 255));
+    background: linear-gradient(rgba(66, 126, 255, 0.95), rgba(37, 73, 150, 0.95));
+}
+
+.link {
+    background-color: transparent;
+    text-decoration: none;
+    color: #fff;
+    transition: 300ms ease;
+    border: none;
+    font-size: 24px;
+    margin-left: 150px;
+    margin-bottom: 15px;
+}
+
+.link:hover {
+    border: none;
+    background-color: transparent;
+    color: #000;
+    cursor: pointer;
+}
+
+nav {
+    position: fixed;
+    top: 40px;
+    right: 0;
+}
+
+nav ul li {
+    list-style-type: none;
+    display: inline-block;
+}
+
+nav ul li a {
+    background-color: transparent;
+    text-decoration: none;
+    color: #fff;
+    transition: 300ms ease;
+    border: none;
+    font-size: 24px;
+}
+
+nav ul li a:hover,
+nav ul button:hover {
+    border: none;
+    background-color: transparent;
+    color: #000;
+    cursor: pointer;
+}
+
+button.sign-out {
+    width: 100%;
+    margin: 0px;
+    color: #000;
+    font-size: 20px;
+}
+
+nav ul div button {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    font-size: 28px;
+}
+
+.dropdown-container {
+    width: 125px;
+    display: inline-block;
+    margin-right: 50px;
+}
+
+.dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dropdown-box-hidden {
+    visibility: hidden;
+}
+
+.dropdown-box {
+    width: 125px;
+    margin-top: 5px;
+    background-color: #f8f9fb;
+    border-radius: 6%;
+    border: 1px solid #70a6ec;
+    box-shadow: 0px 10px 24px 5px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown ul > div {
+    margin: 0px 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(66, 126, 255, 0.95);
+}
+
+.dropdown-box li {
+    margin: 5px;
+}
+
+.dropdown-box .icon {
+    margin-right: 5px;
+}
+
+.dropdown-box a,
+.dropdown-box button {
+    width: 100%;
+    padding: 5px;
+    color: #000;
+    font-size: 20px;
+}
+
+.dropdown-box a:hover {
+        color: rgba(66, 126, 255, 0.95)
+}
+
+.logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.text {
+    margin-top: 35px;
+}
+
+.logo > .text > h1 {
+    font-size: 38px;
+}
+
+.logo > .text > h1 > i {
+    padding: 10px;
+}

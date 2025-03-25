@@ -1,10 +1,10 @@
 .sidebar {
     width: 15%;
     height: 100vh;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
     position: sticky;
     overflow-y: scroll;
-    background: -webkit-linear-gradient(rgba(36, 73, 151, 255) rgba(84, 164, 234, 255));
-    background: linear-gradient(rgba(102, 148, 247, 0.8), rgba(0, 0, 0, 0.8));
 }
 
 .sidebar-header {

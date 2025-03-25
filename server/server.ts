@@ -15,28 +15,6 @@ type device = { id: string, status: string, deviceName: string, lastPing: number
 let connectedDevices = new Map<string, device>();
 let arduinoWebsockets = new Map<string, WebSocket>();
 
-app.get('/connect', (req: any, res: any) => {
-    console.log("Device connected");
-
-    res.status(200)
-});
-
-app.post('/data', (req: any, res: any) => {
-    console.log("Received data from arduino: ", req.body);
-
-    res.status(200).send("Data received");
-});
-
-app.get('/ping', (req: any, res: any) => {
-    connectedDevices.forEach((device) => {
-        if (device['id'] === req.get("ID")) {
-            device['lastPing'] = Date.now();
-        }
-    })
-
-    res.status(200).send("Arduino is online");
-});
-
 websocketServer.on('connection', (ws: WebSocket) => {
     console.log("client connected");
 

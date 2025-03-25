@@ -18,7 +18,6 @@ export function IntializeDeviceDialog(props: { show: boolean, devices?: device[]
                             return (
                                 <>
                                     <ExpandableDeviceComponent device={device} sendInitializeCommand={props.sendInitializeCommand} closePopup={props.closePopup} />
-                                    <ExpandableDeviceComponent device={device} sendInitializeCommand={props.sendInitializeCommand} closePopup={props.closePopup} />
                                 </>
                             )
                         }) : <></>}

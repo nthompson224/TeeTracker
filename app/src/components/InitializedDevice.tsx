@@ -5,8 +5,6 @@ import { FiEdit } from 'react-icons/fi';
 import { device, golfer } from "../types/types";
 import { supabase } from "../lib/helper/SupabaseClient";
 
-import "../styles/InitializedDevice.css";
-
 const CDNURL = "https://raehtwwdbuzfggmigybx.supabase.co/storage/v1/object/public/golfer-pictures/"
 
 export function InitializedDevice(props: { device: device, setHoveredDevice: Function }) {

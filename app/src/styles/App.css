@@ -7,7 +7,7 @@
 
 .base {
     background: -webkit-linear-gradient(rgba(36, 73, 151, 255) rgba(84, 164, 234, 255));
-    background: linear-gradient(rgba(37, 73, 150, 0.95), rgba(0, 0, 0, 0.95));
+    background: linear-gradient(rgba(66, 126, 255, 0.95), rgba(0, 0, 0, 0.95));
 }
 
 .main {

@@ -11,6 +11,7 @@ import { supabase } from "../lib/helper/SupabaseClient";
 import { device, location, selectedGolfer } from "../types/types";
 
 import "../styles/HomePage.css"
+import { NavBar } from "../components/NavBar";
 
 export function HomePage() {
     const loginRedirect = useNavigate();
@@ -39,7 +40,6 @@ export function HomePage() {
                 const {
                     data: { user }
                 } = await supabase.auth.getUser();
-                console.log(user)
                 if (user !== null) {
                     setUserID(user.id);
                 } else {
@@ -104,6 +104,7 @@ export function HomePage() {
 
     return (
         <div className="base">
+            <NavBar />
             <div className="dashboard">
                 <div className="map">
                     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY!} onLoad={() => console.log("Maps API has loaded.")}>

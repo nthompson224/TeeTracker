@@ -1,10 +1,12 @@
 .dashboard {
     display: flex;
+    padding-top:100px;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .map {
     width: 85%;
-    height: 100vh;
 }
 
 .marker {
