@@ -56,7 +56,7 @@ export function ExpandableDeviceComponent(props: { device: device, sendInitializ
         }
 
         let golfer: selectedGolfer = {
-            uuid: selectedGolfer.id,
+            id: selectedGolfer.Id,
             name: selectedGolfer.firstName + " " + selectedGolfer.lastName
         };
 

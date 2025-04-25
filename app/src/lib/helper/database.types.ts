@@ -12,21 +12,21 @@ export type Database = {
       golfers: {
         Row: {
           firstName: string
-          id: string
+          Id: number
           lastName: string
-          pictureUrl: string | null
+          pictureUrl: string
         }
         Insert: {
           firstName: string
-          id?: string
+          Id?: number
           lastName: string
-          pictureUrl?: string | null
+          pictureUrl?: string
         }
         Update: {
           firstName?: string
-          id?: string
+          Id?: number
           lastName?: string
-          pictureUrl?: string | null
+          pictureUrl?: string
         }
         Relationships: []
       }

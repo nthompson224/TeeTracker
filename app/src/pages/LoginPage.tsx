@@ -52,7 +52,7 @@ export function LoginPage() {
                 <div className="login-error">
                 </div>
                 <div className="input-wrap">
-                    <div className="input">
+                    <div className="golfer-name-input">
                         <input type="text" id="email" placeholder="" />
                         <div className="label">
                             <label htmlFor="email">Email</label>

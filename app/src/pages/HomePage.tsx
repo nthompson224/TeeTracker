@@ -27,7 +27,7 @@ export function HomePage() {
         let message = {
             command: "INITIALIZE",
             id: 1,
-            golferId: golfer.uuid,
+            golferId: golfer.id,
             name: golfer.name
         };
 

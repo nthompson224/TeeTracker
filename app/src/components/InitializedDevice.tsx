@@ -20,7 +20,7 @@ export function InitializedDevice(props: { device: device, setHoveredDevice: Fun
 
             if (data) {
                 let golferData: golfer = {
-                    uuid: data[0].id,
+                    id: data[0].Id,
                     name: data[0].firstName + " " + data[0].lastName,
                     pictureUrl: data[0].pictureUrl!
                 };
