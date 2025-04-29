@@ -10,7 +10,7 @@ const arduinoWebsocketServer: WebSocketServer = new ws.Server({ port: 3002 });
 
 app.use(bodyParser.json());
 
-type device = { id: string, status: string, deviceName: string, lastPing: number };
+type device = { id: string, status: string, deviceName: string, lastPing: number, golferUUID: string };
 
 let connectedDevices = new Map<string, device>();
 let arduinoWebsockets = new Map<string, WebSocket>();
@@ -57,6 +57,7 @@ arduinoWebsocketServer.on("connection", (ws: WebSocket) => {
             let newDevice: device = {
                 id: msg.id,
                 status: msg.status,
+                golferUUID: msg.golferUUID,
                 deviceName: msg.name,
                 lastPing: Date.now(),
             };
@@ -80,6 +81,7 @@ arduinoWebsocketServer.on("connection", (ws: WebSocket) => {
                 id: msg.id,
                 status: msg.status,
                 deviceName: msg.name,
+                golferUUID: msg.golferUUID,
                 lastPing: Date.now()
             });
 

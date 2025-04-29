@@ -14,6 +14,7 @@ export function InitializedDevice(props: { device: device, setHoveredDevice: Fun
 
     useEffect(() => {
         const getGolfer = async () => {
+            console.log(props.device)
             const { data, error } = await supabase.from("members").select().eq("member_Id", parseInt(props.device.golferUUID!));
 
             if (error) {
