@@ -91,6 +91,7 @@ arduinoWebsocketServer.on("connection", (ws: WebSocket) => {
                     id: msg.id,
                     status: msg.status,
                     name: msg.name,
+                    golferUUID: msg.golferUUID,
                     coordinates: {
                         long: msg.longitude,
                         lat: msg.latitude
