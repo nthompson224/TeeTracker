@@ -54,12 +54,14 @@ export function ExpandableDeviceComponent(props: { device: device, sendInitializ
             return;
         }
 
+        console.log(selectedMember)
+
         let golfer: selectedMember = {
             id: selectedMember.member_Id,
             name: selectedMember.firstName + " " + selectedMember.lastName
         };
 
-        props.sendInitializeCommand(golfer);
+        props.sendInitializeCommand(golfer, props.device.id);
         props.closePopup(false);
     }
 

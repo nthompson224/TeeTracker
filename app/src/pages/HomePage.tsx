@@ -29,10 +29,10 @@ export function HomePage() {
 
     const socket = useRef<WebSocket | null>(null);
 
-    function sendInitializeCommand(member: member) {
+    function sendInitializeCommand(member: member, deviceId: string) {
         let message = {
             command: "INITIALIZE",
-            id: member.id,
+            id: deviceId,
             golferId: member.id,
             name: member.firstName + " " + member.lastName
         };
@@ -40,13 +40,11 @@ export function HomePage() {
         socket.current!.send(JSON.stringify(message))
     }
 
-    function sendUninitializeCommand(member: member) {
+    function sendUninitializeCommand(member: member, deviceId: string) {
         let message = {
             command: "UNINITIALIZE",
-            id: member.id
+            id: deviceId
         }
-
-        console.log("test")
 
         socket.current!.send(JSON.stringify(message));
     }

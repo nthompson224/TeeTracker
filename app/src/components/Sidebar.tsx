@@ -12,7 +12,7 @@ export function Sidebar(props: { devices?: device[], showPopup: Function, setHov
             <div className="sidebar-header">
                 <h3>Active Golfers</h3>
                 <div className="add-device">
-                    <button className="add-device-button" onClick={() => console.log(props.devices)}>+</button>
+                    <button className="add-device-button" onClick={() => props.showPopup(true)}>+</button>
                 </div>
             </div>
             <div className="golfers">
