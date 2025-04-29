@@ -1,0 +1,90 @@
+.add-golfer {
+    width: 25%;
+}
+
+.add-golfer-button {
+    background-color: transparent;
+    text-decoration: none;
+    display: inline block;
+    text-align: center;
+    color: #fff;
+    transition: 300ms ease;
+    border: 2px solid #fff;
+    width: 200px;
+    font-size: 24px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-radius: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.add-golfer-button:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    cursor: pointer;
+}
+
+.search-golfers {
+    display: flex;
+    flex-direction: row;
+    width: 700px;
+}
+
+.top-bar {
+    display: flex;
+    align-items: baseline;
+    width: 50%;
+}
+
+.golfer h3, h4 {
+    padding: 5px 10px;
+}
+
+.golfer-name-input {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-align: left;
+    height: 100%;
+    width: 95%;
+}
+
+.golfer-name-input input {
+    background-color: transparent;
+    border: none;
+    color: white;
+    transition: 300ms ease;
+    border-bottom: 1px solid #fff;
+    width: 100%;
+    padding: 8px 0;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.golfer-name-input input:focus {
+    outline: none;
+    border-color: #b9d3f5;
+    box-shadow: 0 1px 0 0 #b9d3f5;
+}
+
+.golfer-name-input input:focus+.label,
+.golfer-name-input input:not(:placeholder-shown)+.label,
+.golfer-name-input input:-webkit-autofill+.label {
+    transform: translateY(-27px);
+}
+
+.golfer-name-input input:focus+.label label,
+.golfer-name-input input:not(:placeholder-shown)+.label label,
+.golfer-name-input input:-webkit-autofill+.label label {
+    cursor: default;
+    font-weight: 500;
+    color: #fff;
+}
+
+.golfer-management-golfers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 3 equal columns */
+    gap: 1rem;
+}

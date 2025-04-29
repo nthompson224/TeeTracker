@@ -25,6 +25,10 @@
     cursor: pointer;
 }
 
+.links {
+    padding-left: 500px;
+}
+
 nav {
     position: fixed;
     top: 40px;

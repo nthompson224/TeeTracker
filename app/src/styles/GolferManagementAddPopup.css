@@ -1,0 +1,42 @@
+.popup-header {
+    padding-bottom: 15px;
+}
+
+.golfer-management-popup-content {
+    width: 25%;
+    height: 30%;
+    border-radius: 25px;
+    padding: 5px;
+    background: -webkit-linear-gradient(rgba(36, 73, 151, 255) rgba(84, 164, 234, 255));
+    background: linear-gradient(rgba(37, 73, 150, 1), rgba(0, 0, 0, 1));
+}
+
+.add-member-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.add-member-button {
+    background-color: transparent;
+    text-decoration: none;
+    display: inline block;
+    text-align: center;
+    color: #fff;
+    transition: 300ms ease;
+    border: 2px solid #fff;
+    width: 25%;
+    font-size: 24px;
+    margin-top: -20px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-radius: 50px;
+    margin-left: 15px;
+}
+
+.add-member-button:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    cursor: pointer;
+}

@@ -2,62 +2,61 @@ import { useState } from "react";
 
 import { supabase } from "../lib/helper/SupabaseClient";
 
-import { device, selectedGolfer } from "../types/types";
-import { Golfer } from "../types/DatabaseTypes";
+import { device, selectedGolfer as selectedMember } from "../types/types";
+import { Member } from "../types/DatabaseTypes";
 
 import "../styles/ExpandableDeviceComponent.css"
 import { GolferComponent } from "./GolferComponent";
 
-export function ExpandableDeviceComponent(props: { device: device, sendInitializeCommand: Function, closePopup: Function }) {
+export function ExpandableDeviceComponent(props: { device: device, sendInitializeCommand: Function, closePopup: Function, companyId: string }) {
     const [isExpanded, setIsExpanded] = useState(false);
-    const [golfers, setGolfers] = useState<Golfer[]>([]);
-    const [selectedGolfer, setSelectedGolfer] = useState<Golfer | null>(null);
+    const [members, setMembers] = useState<Member[]>([]);
+    const [selectedMember, setSelectedGolfer] = useState<Member | null>(null);
 
-    async function queryGolfers() {
+    async function queryMembers() {
         const name = (document.getElementById("name") as HTMLInputElement).value;
 
         if (name === "") {
-            setGolfers([]);
+            setMembers([]);
             return;
         }
 
-        const { data, error } = await supabase.from("golfers").select().or(`firstName.ilike.${name}%,lastName.ilike.${name}%`);
+        const { data, error } = await supabase.from("members").select().or(`firstName.ilike.${name}%,lastName.ilike.${name}%`).eq("company_id", props.companyId);
 
         if (error) {
             console.log(error);
         }
-        console.log(data);
 
         if (data) {
-            setGolfers(data);
+            setMembers(data);
         } else {
-            setGolfers([]);
+            setMembers([]);
         }
     }
 
     function closeExpandableDeviceComponent() {
         setIsExpanded(false);
-        setGolfers([]);
+        setMembers([]);
         setSelectedGolfer(null);
     }
 
-    function handleGolferClick(golfer: Golfer) {
-        setSelectedGolfer(golfer);
+    function handleGolferClick(member: Member) {
+        setSelectedGolfer(member);
 
-        (document.getElementById("name") as HTMLInputElement).value = golfer.firstName + " " + golfer.lastName;
+        (document.getElementById("name") as HTMLInputElement).value = member.firstName + " " + member.lastName;
 
-        setGolfers([]);
+        setMembers([]);
     }
 
     function sendInitializeCommand() {
-        if (!selectedGolfer) {
+        if (!selectedMember) {
             alert("Please select a golfer");
             return;
         }
 
-        let golfer: selectedGolfer = {
-            id: selectedGolfer.Id,
-            name: selectedGolfer.firstName + " " + selectedGolfer.lastName
+        let golfer: selectedMember = {
+            id: selectedMember.member_Id,
+            name: selectedMember.firstName + " " + selectedMember.lastName
         };
 
         props.sendInitializeCommand(golfer);
@@ -77,16 +76,16 @@ export function ExpandableDeviceComponent(props: { device: device, sendInitializ
                 <div className="device-initialize">
                     <div className='input-wrap'>
                         <div className="input">
-                            <input id="name" placeholder="" onChange={queryGolfers} />
+                            <input id="name" placeholder="" onChange={queryMembers} />
                             <div className="label">
                                 <label htmlFor="name">Golfer Name</label>
                             </div>
                         </div>
-                        {golfers.length > 0 ?
+                        {members.length > 0 ?
                             <div className="autocomplete">
-                                {golfers.map((golfer) => {
+                                {members.map((golfer) => {
                                     return (
-                                        <GolferComponent golfer={golfer} handleGolferClick={handleGolferClick} />
+                                        <GolferComponent member={golfer} handleGolferClick={handleGolferClick} />
                                     )
                                 })}
                             </div> : <></>}

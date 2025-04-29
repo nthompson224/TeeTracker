@@ -47,19 +47,17 @@ export function LoginPage() {
         <div className="login-register-page">
             <div className="content">
                 <h1>
-                    <i>TeeTracker</i>
+                    <i className="login-regiseter-i">TeeTracker</i>
                 </h1>
                 <div className="login-error">
                 </div>
                 <div className="input-wrap">
-                    <div className="golfer-name-input">
+                    <div className="input">
                         <input type="text" id="email" placeholder="" />
                         <div className="label">
                             <label htmlFor="email">Email</label>
                         </div>
                     </div>
-                </div>
-                <div className='input-wrap'>
                     <div className="input">
                         <input type="password" id="password" placeholder="" />
                         <div className="label">
@@ -69,6 +67,7 @@ export function LoginPage() {
                 </div>
                 <button className="button" onClick={loginUser}>Login</button>
                 <Link className="button" to="/register">Register</Link>
+                <Link className="wide-button" to="/register-company">Register Company</Link>
             </div>
         </div>
     );

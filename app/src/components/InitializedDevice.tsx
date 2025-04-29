@@ -12,7 +12,7 @@ export function InitializedDevice(props: { device: device, setHoveredDevice: Fun
 
     useEffect(() => {
         const getGolfer = async () => {
-            const { data, error } = await supabase.from("golfers").select().eq("id", props.device.golferUUID!);
+            const { data, error } = await supabase.from("members").select().eq("id", props.device.golferUUID!);
 
             if (error) {
                 console.log(error);
@@ -20,7 +20,7 @@ export function InitializedDevice(props: { device: device, setHoveredDevice: Fun
 
             if (data) {
                 let golferData: golfer = {
-                    id: data[0].Id,
+                    id: data[0].member_Id,
                     name: data[0].firstName + " " + data[0].lastName,
                     pictureUrl: data[0].pictureUrl!
                 };

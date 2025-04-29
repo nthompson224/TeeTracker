@@ -1,11 +1,12 @@
-import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 
 import { supabase } from "../lib/helper/SupabaseClient";
 
+import { Company } from "../types/DatabaseTypes";
+
 import "../styles/NavBar.css";
 
-export function NavBar() {
+export function NavBar(props: { company?: Company }) {
     const loginRedirect = useNavigate();
 
     async function handleSignOutClicked() {
@@ -35,10 +36,11 @@ export function NavBar() {
                         <i>R</i>
                     </h1>
                 </div>
-                <Link className="link" to="/">Home</Link>
-                <Link className="link" to="/golfer-management">Golfer Management</Link>
-                <Link className="link" to="/account">Account</Link>
-                <button className="link" onClick={handleSignOutClicked}>Sign Out</button>
+                <div className="links">
+                    <Link className="link" to="/">Home</Link>
+                    <Link className="link" to={"/golfer-management"} state={props.company}>Golfer Management</Link>
+                    <button className="link" onClick={handleSignOutClicked}>Sign Out</button>
+                </div>
             </div>
         </div>
     )

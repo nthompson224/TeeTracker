@@ -1,22 +1,25 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { APIProvider, Map, MapCameraChangedEvent } from "@vis.gl/react-google-maps";
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
 
 import { Sidebar } from "../components/Sidebar";
 import { IntializeDeviceDialog } from "../components/IntializeDeviceDialog";
 import { PoiMarkers } from "../components/PoiMarkers";
+import { NavBar } from "../components/NavBar";
 
 import { supabase } from "../lib/helper/SupabaseClient";
-import { device, location, selectedGolfer } from "../types/types";
+
+import { Company } from "../types/DatabaseTypes";
+import { device, selectedGolfer } from "../types/types";
 
 import "../styles/HomePage.css"
-import { NavBar } from "../components/NavBar";
 
 export function HomePage() {
     const loginRedirect = useNavigate();
 
     const [userID, setUserID] = useState("");
+    const [company, setCompany] = useState<Company>();
     const [initializedDevices, setInitializedDevices] = useState<device[]>();
     const [showPopup, setShowPopup] = useState(false);
     const [hoveredDevice, setHoveredDevice] = useState<device | undefined>();
@@ -42,6 +45,19 @@ export function HomePage() {
                 } = await supabase.auth.getUser();
                 if (user !== null) {
                     setUserID(user.id);
+                    try {
+                        const { data, error } = await supabase.from("registered_companies").select("*").eq("domain", user.email!.split("@")[1]);
+                        if (data && data.length !== 0) {
+                            setCompany(data[0]);
+                            console.log(data)
+                        } else {
+                            console.log(error);
+                            alert("There was an error finding your company. Please contact your admin.");
+                            loginRedirect("/login");
+                        }
+                    } catch (e) {
+                        console.log(e);
+                    }
                 } else {
                     setUserID("");
                     loginRedirect("/login", { state: { userID: userID } });
@@ -100,17 +116,17 @@ export function HomePage() {
                 }
             };
         }
-    }, [userID, loginRedirect]);
+    }, []);
 
-    return (
+    return company ?
         <div className="base">
-            <NavBar />
+            <NavBar company={company} />
             <div className="dashboard">
                 <div className="map">
                     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY!} onLoad={() => console.log("Maps API has loaded.")}>
                         <Map
                             defaultZoom={20}
-                            defaultCenter={{ lat: 41.0032, lng: -81.59075 }}
+                            defaultCenter={{ lat: company.course_latitude, lng: company.course_longitude }}
                             mapId={"858637552d9afbaf "}
                             mapTypeId="satellite"
                             disableDefaultUI={true}
@@ -120,8 +136,7 @@ export function HomePage() {
                     </APIProvider>
                 </div>
                 <Sidebar devices={initializedDevices} showPopup={setShowPopup} setHoveredDevice={setHoveredDevice} />
-                <IntializeDeviceDialog devices={initializedDevices} show={showPopup} closePopup={setShowPopup} sendInitializeCommand={sendInitializeCommand} />
+                <IntializeDeviceDialog devices={initializedDevices} show={showPopup} closePopup={setShowPopup} sendInitializeCommand={sendInitializeCommand} companyId={company?.company_id!} />
             </div>
-        </div>
-    );
+        </div> : <></>
 }

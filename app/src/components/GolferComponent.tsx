@@ -1,14 +1,13 @@
-import { Golfer } from "../types/DatabaseTypes";
+import { Member } from "../types/DatabaseTypes";
 
 const CDNURL = "https://raehtwwdbuzfggmigybx.supabase.co/storage/v1/object/public/golfer-pictures/"
 
-export function GolferComponent(props: { golfer: Golfer, handleGolferClick: Function }) {
+export function GolferComponent(props: { member: Member, handleGolferClick: Function }) {
     return (
-        <div key={props.golfer.Id} className="golfer" onClick={() => { console.log(CDNURL + props.golfer.pictureUrl) }}>
-            <img className="golfer-picture" src={CDNURL + props.golfer.pictureUrl} />
+        <div key={props.member.member_Id} className="golfer" onClick={() => props.handleGolferClick(props.member)}>
             <div>
-                <h3>{props.golfer.firstName} {props.golfer.lastName}</h3>
-                <h4>ID: {props.golfer.Id}</h4>
+                <h3>{props.member.firstName} {props.member.lastName}</h3>
+                <h4>ID: {props.member.member_Id}</h4>
             </div>
         </div>
     )
