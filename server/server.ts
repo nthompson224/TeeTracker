@@ -30,11 +30,9 @@ websocketServer.on('connection', (ws: WebSocket) => {
     ws.on('message', (message: string) => {
         const msg = JSON.parse(message);
 
-        if (msg.command === "INITIALIZE") {
-            const arduinoWs = arduinoWebsockets.get(msg.id);
-            if (arduinoWs) {
-                arduinoWs.send(message);
-            }
+        const arduinoWs = arduinoWebsockets.get(msg.id);
+        if (arduinoWs) {
+            arduinoWs.send(message);
         }
     });
 

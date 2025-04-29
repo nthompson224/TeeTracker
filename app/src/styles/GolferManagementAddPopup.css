@@ -40,3 +40,27 @@
     border: 2px solid #000000;
     cursor: pointer;
 }
+
+.deinitialize-button {
+    background-color: transparent;
+    text-decoration: none;
+    display: inline block;
+    text-align: center;
+    color: #fff;
+    transition: 300ms ease;
+    border: 2px solid #fff;
+    width: 30%;
+    font-size: 24px;
+    margin-top: -20px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-radius: 50px;
+    margin-left: 15px;
+}
+
+.deinitialize-button:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    cursor: pointer;
+}

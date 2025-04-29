@@ -27,6 +27,17 @@ export function RegisterPage() {
             );
         }
 
+        if (email.split("@").length < 2) {
+            tempRegisterError.push(
+                "Please enter a valid email."
+            );
+        }
+
+        if ((await checkIfEmailDomainIsInRegisteredCompanies(email.split("@")[1])).valueOf()) {
+            alert("This email domain is not valid. Please register a company first");
+            return;
+        }
+
         if (tempRegisterError.length !== 0) {
             setRegisterErrors(tempRegisterError);
             return;
@@ -46,6 +57,12 @@ export function RegisterPage() {
         if (data) {
             registerRedirect("/");
         }
+    }
+
+    async function checkIfEmailDomainIsInRegisteredCompanies(domain: string) {
+        const { data, error } = await supabase.from("registered_companies").select().eq('domain', domain);
+
+        return data?.length === 0;
     }
 
     return (

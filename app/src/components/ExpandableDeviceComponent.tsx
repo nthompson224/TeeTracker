@@ -21,7 +21,7 @@ export function ExpandableDeviceComponent(props: { device: device, sendInitializ
             return;
         }
 
-        const { data, error } = await supabase.from("members").select().or(`firstName.ilike.${name}%,lastName.ilike.${name}%`).eq("company_id", props.companyId);
+        const { data, error } = await supabase.from("members").select().or(`firstName.ilike.${name}%,lastName.ilike.${name}%,full_name.ilike.${name}%`).eq("company_id", props.companyId);
 
         if (error) {
             console.log(error);

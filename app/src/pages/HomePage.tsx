@@ -10,10 +10,11 @@ import { NavBar } from "../components/NavBar";
 
 import { supabase } from "../lib/helper/SupabaseClient";
 
-import { Company } from "../types/DatabaseTypes";
-import { device, selectedGolfer } from "../types/types";
+import { Company, Member } from "../types/DatabaseTypes";
+import { device, member } from "../types/types";
 
 import "../styles/HomePage.css"
+import { InitializedDevicePopup } from "../components/InitializedDevicePopup";
 
 export function HomePage() {
     const loginRedirect = useNavigate();
@@ -22,19 +23,42 @@ export function HomePage() {
     const [company, setCompany] = useState<Company>();
     const [initializedDevices, setInitializedDevices] = useState<device[]>();
     const [showPopup, setShowPopup] = useState(false);
+    const [showEditInitializedDevicePopup, setShowEditInitializedDevicePopup] = useState(false);
+    const [selectedMember, setSelectedMember] = useState<Member | undefined>()
     const [hoveredDevice, setHoveredDevice] = useState<device | undefined>();
 
     const socket = useRef<WebSocket | null>(null);
 
-    function sendInitializeCommand(golfer: selectedGolfer) {
+    function sendInitializeCommand(member: member) {
         let message = {
             command: "INITIALIZE",
-            id: 1,
-            golferId: golfer.id,
-            name: golfer.name
+            id: member.id,
+            golferId: member.id,
+            name: member.firstName + " " + member.lastName
         };
 
         socket.current!.send(JSON.stringify(message))
+    }
+
+    function sendUninitializeCommand(member: member) {
+        let message = {
+            command: "UNINITIALIZE",
+            id: member.id
+        }
+
+        console.log("test")
+
+        socket.current!.send(JSON.stringify(message));
+    }
+
+    function handleEditInitializedDeviceClicked(member: Member) {
+        setSelectedMember(member);
+        setShowEditInitializedDevicePopup(true);
+    }
+
+    function closeEditInitializedDeviceClicked() {
+        setSelectedMember(undefined);
+        setShowEditInitializedDevicePopup(false);
     }
 
     useEffect(() => {
@@ -49,7 +73,6 @@ export function HomePage() {
                         const { data, error } = await supabase.from("registered_companies").select("*").eq("domain", user.email!.split("@")[1]);
                         if (data && data.length !== 0) {
                             setCompany(data[0]);
-                            console.log(data)
                         } else {
                             console.log(error);
                             alert("There was an error finding your company. Please contact your admin.");
@@ -68,46 +91,44 @@ export function HomePage() {
         };
         getUser();
 
-        if (userID !== "") {
-            socket.current = new WebSocket("ws://192.168.1.12:3001");
+        socket.current = new WebSocket("ws://192.168.1.12:3001");
 
-            socket.current.onmessage = (event) => {
-                const messageData = JSON.parse(event.data);
-                console.log(messageData);
+        socket.current.onmessage = (event) => {
+            const messageData = JSON.parse(event.data);
+            console.log(messageData);
 
-                if (messageData["message-type"] === "DEVICE_INFORMATION") {
-                    let tempDevices: device[] = []
-                    for (let i = 0; i < messageData["device-data"].length; ++i) {
-                        tempDevices.push({
-                            id: messageData["device-data"][i]["id"],
-                            status: messageData["device-data"][i]["status"],
-                            name: messageData["device-data"][i]["deviceName"],
-                        })
-                    }
-
-                    setInitializedDevices(tempDevices);
+            if (messageData["message-type"] === "DEVICE_INFORMATION") {
+                let tempDevices: device[] = []
+                for (let i = 0; i < messageData["device-data"].length; ++i) {
+                    tempDevices.push({
+                        id: messageData["device-data"][i]["id"],
+                        status: messageData["device-data"][i]["status"],
+                        name: messageData["device-data"][i]["deviceName"],
+                    })
                 }
 
-                if (messageData["message-type"] === "ARDUINO_DATA") {
-                    setInitializedDevices((prevDevices) =>
-                        prevDevices?.map((device) =>
-                            device.id === messageData["arduino-data"]["id"]
-                                ? {
-                                    id: messageData["arduino-data"]["id"],
-                                    status: messageData["arduino-data"]["status"],
-                                    golferUUID: messageData["arduino-data"]["golferUUID"],
-                                    name: messageData["arduino-data"]["name"],
-                                    location: {
-                                        coordinates: {
-                                            lng: messageData["arduino-data"]["coordinates"]["long"],
-                                            lat: messageData["arduino-data"]["coordinates"]["lat"]
-                                        }
-                                    },
-                                }
-                                : device
-                        ) ?? []
-                    );
-                }
+                setInitializedDevices(tempDevices);
+            }
+
+            if (messageData["message-type"] === "ARDUINO_DATA") {
+                setInitializedDevices((prevDevices) =>
+                    prevDevices?.map((device) =>
+                        device.id === messageData["arduino-data"]["id"]
+                            ? {
+                                id: messageData["arduino-data"]["id"],
+                                status: messageData["arduino-data"]["status"],
+                                golferUUID: messageData["arduino-data"]["golferUUID"],
+                                name: messageData["arduino-data"]["name"],
+                                location: {
+                                    coordinates: {
+                                        lng: messageData["arduino-data"]["coordinates"]["long"],
+                                        lat: messageData["arduino-data"]["coordinates"]["lat"]
+                                    }
+                                },
+                            }
+                            : device
+                    ) ?? []
+                );
             };
 
             return () => {
@@ -135,8 +156,9 @@ export function HomePage() {
                         </Map>
                     </APIProvider>
                 </div>
-                <Sidebar devices={initializedDevices} showPopup={setShowPopup} setHoveredDevice={setHoveredDevice} />
+                <Sidebar devices={initializedDevices} showPopup={setShowPopup} setHoveredDevice={setHoveredDevice} handleMemberClicked={handleEditInitializedDeviceClicked} />
                 <IntializeDeviceDialog devices={initializedDevices} show={showPopup} closePopup={setShowPopup} sendInitializeCommand={sendInitializeCommand} companyId={company?.company_id!} />
             </div>
+            <InitializedDevicePopup show={showEditInitializedDevicePopup} closePopup={closeEditInitializedDeviceClicked} selectedMember={selectedMember!} sendUninitializeCommand={sendUninitializeCommand} companyId={company.company_id} />
         </div> : <></>
 }

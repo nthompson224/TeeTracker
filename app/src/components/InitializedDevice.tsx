@@ -2,30 +2,26 @@ import { useEffect, useState } from "react";
 
 import { FiEdit } from 'react-icons/fi';
 
-import { device, golfer } from "../types/types";
+import { device, golfer, member } from "../types/types";
 import { supabase } from "../lib/helper/SupabaseClient";
+import { Member } from "../types/DatabaseTypes";
+import { prependOnceListener } from "process";
 
 const CDNURL = "https://raehtwwdbuzfggmigybx.supabase.co/storage/v1/object/public/golfer-pictures/"
 
-export function InitializedDevice(props: { device: device, setHoveredDevice: Function }) {
-    const [golfer, setGolfer] = useState<golfer>();
+export function InitializedDevice(props: { device: device, setHoveredDevice: Function, handleClick: Function }) {
+    const [member, setMember] = useState<Member>();
 
     useEffect(() => {
         const getGolfer = async () => {
-            const { data, error } = await supabase.from("members").select().eq("id", props.device.golferUUID!);
+            const { data, error } = await supabase.from("members").select().eq("member_Id", parseInt(props.device.golferUUID!));
 
             if (error) {
                 console.log(error);
             }
 
             if (data) {
-                let golferData: golfer = {
-                    id: data[0].member_Id,
-                    name: data[0].firstName + " " + data[0].lastName,
-                    pictureUrl: data[0].pictureUrl!
-                };
-
-                setGolfer(golferData);
+                setMember(data[0]);
             }
         }
         getGolfer();
@@ -33,11 +29,13 @@ export function InitializedDevice(props: { device: device, setHoveredDevice: Fun
 
     return (
         <>
-            {golfer ?
-                <div className="golfer" onMouseEnter={() => props.setHoveredDevice(props.device)} onMouseLeave={() => props.setHoveredDevice(undefined)}>
+            {member ?
+                <div className="golfer" onMouseEnter={() => props.setHoveredDevice(props.device)} onMouseLeave={() => props.setHoveredDevice(undefined)} onClick={() => props.handleClick(member)}>
                     <div className="color-identifier" style={{ backgroundColor: "cyan" }}>&nbsp;</div>
-                    <img src={CDNURL + golfer?.pictureUrl} />
-                    <h3>{golfer?.name}</h3>
+                    <div>
+                        <h3>{member.firstName} {member.lastName}</h3>
+                        <h4>ID: {member.member_Id}</h4>
+                    </div>
                 </div> : <></>
             }
         </>
